@@ -6,7 +6,24 @@ const Ninja = require("../models/ninja");
 //get a list of ninjas from the db
 router.get("/ninjas", function (req, res, next) {
   /// not "api/ninjas" /// because I put in index.js
-  res.send({ type: "GET" });
+
+  Ninja.aggregate()
+    .near(
+      {
+        near: {
+          type: "Point",
+          coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)],
+        },
+        maxDistance: 100000,
+        spherical: true,
+        distanceField: "distance",
+      }
+      //in url number is string so we need to change to numnber
+    )
+    .then(function (ninjas) {
+      res.send(ninjas);
+    })
+    .catch(next);
 });
 //add a new ninja to the db
 router.post("/ninjas", function (req, res, next) {
@@ -24,11 +41,19 @@ router.post("/ninjas", function (req, res, next) {
 
 //update a ninja in the db
 router.put("/ninjas/:id", function (req, res, next) {
-  res.send({ type: "PUT" });
+  Ninja.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true }).then(
+    function (ninja) {
+      res.send(ninja);
+    }
+  );
 });
+
 //delete a ninja from the db
 router.delete("/ninjas/:id", function (req, res, next) {
-  res.send({ type: "DELETE" });
+  // console.log(req.params.id); ///we can check in post man any thing we type in url
+  Ninja.findByIdAndRemove({ _id: req.params.id }).then(function (ninja) {
+    res.send(ninja);
+  });
 });
 
 module.exports = router;

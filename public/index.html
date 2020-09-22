@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="title">Ninjago</h1>
+    <div id="homepage">
+      <h1>Hire a ninja in your area!</h1>
+      <div id="ninjas"></div>
+    </div>
+    
+    <div id="ninja-container">
+        <form id="search" name="contact-form">
+        <label>Enter your latitude</label>
+        <input
+                  type="text"
+                  ref="lat"
+                  placeholder="latitude"
+                  required
+        ></input>
+        <label>Enter your longitude</label>
+        <input
+                  type="text"
+                  ref="lng"
+                  placeholder="longitude"
+                  required
+        ></input>
+        <input class="submit" type="submit" value="Find ninjas" onClick="submitForm()"/>
+        </form>
+        </div>
+         <div id="customers"></div>
+      <script src="script.js"></script>
+    
+  </body>
+</html>

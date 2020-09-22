@@ -5,7 +5,7 @@
 - API?
 
   - TV(application) - remote control(interface)
-    - interaction is vert human and you're actively and pressing buttons with your finger!
+    - interaction is very human and you're actively and pressing buttons with your finger!
     - Application HUMAN interface
   - Youtube(application) - interface(series of endpoints)
     - instead of buttons(human interaction) this would be application programming interface
@@ -40,8 +40,8 @@
 # 3. HTTP Methods
 
 - A way of telling the server what type of request we are making
-  - GET ( Create a new ninja and store it)
-  - POST( Reading / retrieving a list of ninja)
+  - POST ( Create a new ninja and store it)
+  - GET ( Reading / retrieving a list of ninja)
   - PUT ( Edit an existing ninja)
   - DELETE ( Delete a ninja from the db)
 - API Routes
@@ -158,3 +158,68 @@
 - and in index make our own catch method
 
 # 11. delete request
+
+- check with console.log and postman
+- we want to add mongoose method which is findByIdAndRemove();
+- match with url id so i copy from mongodb and copy to my url and i can see ond data in postman
+- and in mongodb data gone!!
+
+# 12. put requests
+
+- findByIdAndUpdate()
+- what we want to update? need to add as second parameter req.body
+- send changed name with postman
+- in robomongo name has update but respond is same name
+- why? send old ninja db
+- so update db and send updated db so use findOne()
+- but a lot of comment said that
+  can put third parameter {new:true}
+
+# 13. Geo JSON
+
+- show ninja near by geo location
+- geojson website copy structure and use ours
+- 2dsphere?more accurate than 2d
+- create new schema and put in ninja schema
+
+# 14. Handling GET Requests
+
+- post different ninjas with postman
+- find(): find every ninjas
+
+```js
+Ninja.find({}).then(function (ninjas) {
+  res.send(ninjas);
+}); //find all ninja
+```
+
+- we want to find ninja which is near in geo
+- so we can use URL params
+  - can add on parameters in request URL's
+  - ex) www.ninjago.com/api/ninjas?lng=50.45&lat=42.35
+  - add geoNear() in api.js
+  - geoNear said that it's a bit outdated so! change with one of comment one
+  ```js
+  Ninja.geoNear(
+    {
+      type: "Point",
+      coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)],
+    },
+    { maxDistance: 100000, spherical: true } //100000m
+    //in url number is string so we need to change to numnber
+  );
+  ```
+  - check in postman with params key, value
+  - not working!!
+
+# 15. front end
+
+- react
+- add `app.use(express.static("public"));`
+  going to serve static file and look for public folder
+  and in url if we search localhost:4000/index.html we can see!
+
+# 16. React
+
+- a lot of issues so maybe not follow???
+- I can only see empty array and can not do with my app.

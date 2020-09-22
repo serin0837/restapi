@@ -10,6 +10,9 @@ mongoose.connect("mongodb://localhost/ninjago"); ///mongoose going to create for
 ///because mongoose version of the pomise is deprecated , we want to change to global promise
 mongoose.Promise = global.Promise; ///overwriting
 
+//serve static file
+app.use(express.static("public")); //look public folder
+
 //add body parser
 app.use(bodyParser.json()); ///we want to json
 
